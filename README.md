@@ -13,6 +13,7 @@
 * [**專題連結區**](https://github.com/ett9292/LATIA112-1#專題連結區)
 
 # 課程筆記區 
+  > [Thonny](https://thonny.org/)
 # 作業連結區 
 ## 作業一
 ## 作業二
