@@ -14,6 +14,8 @@
 
 # 課程筆記區 
   > [Thonny](https://thonny.org/)
+
+  > [Colab實驗區](https://colab.research.google.com/drive/1DMXKLHrpxbJdlWSLP1T2ocVZJ2I53xGQ#scrollTo=Q2kN2IAUPRrs)
 # 作業連結區 
 ## 作業一
 > Github: <https://github.com/ett9292/PL/blob/main/hw01/hw1_PandasApplication.ipynb>
