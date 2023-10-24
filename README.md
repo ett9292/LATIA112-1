@@ -16,6 +16,7 @@
   > [Thonny](https://thonny.org/)
 # 作業連結區 
 ## 作業一
+> Github: <https://github.com/ett9292/PL/blob/main/hw01/hw1_PandasApplication.ipynb>
 ## 作業二
 ## 作業三
 # 專題連結區
