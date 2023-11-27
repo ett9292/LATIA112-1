@@ -21,4 +21,5 @@
 > Github: <https://github.com/ett9292/LATIA112-1/blob/main/hw01/hw1_PandasApplication.ipynb>
 ## 作業二
 ## 作業三
+> [HW3 - Azure語言服務VS.教育應用](https://github.com/ett9292/LATIA112-1/blob/main/meowBot/hw03.md)
 # 專題連結區
