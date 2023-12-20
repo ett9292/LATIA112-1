@@ -1,0 +1,22 @@
+from selenium import webdriver
+from bs4 import BeautifulSoup
+import requests
+import time
+
+PATH = "D:/chromedriver-win32/chromedriver.exe"
+driver = webdriver.Chrome()
+
+# 創建 ChromeOptions 對象
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+# 使用 ChromeOptions 創建 Chrome WebDriver
+driver = webdriver.Chrome(options=chrome_options)
+
+# # 設置要添加的 cookie
+# cookie = {'name': '__Secure-3PSIDCC', 'value': 'ABTWhQHIB-98o4aPgbeuML_wcxlBaFSw0V0IRoq8mOWbe6RQt-XT8RoJwDD7NTqnNa45azssqLrz'}
+# driver.add_cookie(cookie)
+
+# 現在你的 WebDriver 將使用指定的 User-Agent 進行請求
+driver.get('https://www.com.tw/star/university_002_112.html')
+
+time.sleep(60)

@@ -6,12 +6,8 @@ from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
 
 from flask import Flask, request, abort
-from linebot.v3 import (
-    WebhookHandler
-)
-from linebot.v3.exceptions import (
-    InvalidSignatureError
-)
+from linebot.v3 import WebhookHandler
+from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.webhooks import (
     MessageEvent,
     TextMessageContent,
@@ -45,7 +41,7 @@ if channel_access_token is None:
 handler = WebhookHandler(channel_secret)
 
 configuration = Configuration(
-    access_token=channel_access_token
+    access_token = channel_access_token
 )
 
 @app.route("/callback", methods=['POST'])
@@ -65,7 +61,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def message_text(event):
+    translate = {"positive": "正向", "negative": "正向", "neutral": "中性"}
     sentiment_result = azure_sentiment(event.message.text)
+    analysis_result = sentiment_result[0]
+    result = sentiment_result[1][analysis_result]
+    result = (
+        translate[analysis_result] + "。分數:" + str(result) + str(sentiment_result[2])
+    )
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info(
@@ -75,24 +77,28 @@ def message_text(event):
             )
         )
 
+
 def azure_sentiment(user_input):
     text_analytics_client = TextAnalyticsClient(
         endpoint=config['AzureLanguage']['END_POINT'], 
         credential=credential,
-        language="zh-Hant",  # 使用中文
-        include_score=True)
+        language="zh-Hant")
+    
     documents = [user_input]
     response = text_analytics_client.analyze_sentiment(
         documents, 
-        show_opinion_mining=True)
+        show_opinion_mining=True,
+        language="zh-Hant")
     print(response)
     docs = [doc for doc in response if not doc.is_error]
     for idx, doc in enumerate(docs):
         print(f"Document text : {documents[idx]}")
         print(f"Overall sentiment : {doc.sentiment}")
-        print(f"Sentiment score : {doc.confidence_scores[doc.sentiment]}")  # 输出情感分数
-    return f"情感: {doc.sentiment}, 分数: {doc.confidence_scores[doc.sentiment]}"
+        # print(f"Sentiment score: {doc.confidence_scores[doc.sentiment]}")
+        print(f"return是:{docs[0].confidence_scores[doc.sentiment]}")
+    return docs[0].sentiment
+    # return f"情感: {docs[0].sentiment}"
+    # , 分数: {docs[0].confidence_scores[doc.sentiment]}"
 
 if __name__ == "__main__":
     app.run()
-    

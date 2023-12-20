@@ -78,9 +78,7 @@ def message_text(event):
 def azure_sentiment(user_input):
     text_analytics_client = TextAnalyticsClient(
         endpoint=config['AzureLanguage']['END_POINT'], 
-        credential=credential,
-        language="zh-Hant",  # 使用中文
-        include_score=True)
+        credential=credential)
     documents = [user_input]
     response = text_analytics_client.analyze_sentiment(
         documents, 
@@ -90,8 +88,7 @@ def azure_sentiment(user_input):
     for idx, doc in enumerate(docs):
         print(f"Document text : {documents[idx]}")
         print(f"Overall sentiment : {doc.sentiment}")
-        print(f"Sentiment score : {doc.confidence_scores[doc.sentiment]}")  # 输出情感分数
-    return f"情感: {doc.sentiment}, 分数: {doc.confidence_scores[doc.sentiment]}"
+    return docs[0].sentiment
 
 if __name__ == "__main__":
     app.run()
