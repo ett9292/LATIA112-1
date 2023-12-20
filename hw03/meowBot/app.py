@@ -78,17 +78,61 @@ def message_text(event):
 def azure_sentiment(user_input):
     text_analytics_client = TextAnalyticsClient(
         endpoint=config['AzureLanguage']['END_POINT'], 
-        credential=credential)
+        credential=credential,
+        language="zh-Hant",
+        include_score=True)
     documents = [user_input]
     response = text_analytics_client.analyze_sentiment(
         documents, 
         show_opinion_mining=True)
+
+def azure_sentiment(user_input):
+    text_analytics_client = TextAnalyticsClient(
+        endpoint=config['AzureLanguage']['END_POINT'], 
+        credential=credential)
+    documents = [user_input]
+    response = text_analytics_client.analyze_sentiment(
+        documents, 
+        show_opinion_mining=True,
+        language="zh-Hant")
     print(response)
     docs = [doc for doc in response if not doc.is_error]
-    for idx, doc in enumerate(docs):
-        print(f"Document text : {documents[idx]}")
-        print(f"Overall sentiment : {doc.sentiment}")
-    return docs[0].sentiment
+    key_phrases_response = text_analytics_client.extract_key_phrases(documents, language="zh-Hant")
+    key_phrases_docs = [doc for doc in key_phrases_response if not doc.is_error]
+    Reply = ""
+    if docs:
+        result = docs[0].sentiment
+        scores = docs[0].confidence_scores
+        if result == "positive":
+            Reply = f"正向! 分數: {scores.positive:.2f}\n"
+        elif result == "neutral":
+            Reply = f"中性~ 分數: {scores.neutral:.2f}\n"
+        elif result == "negative":
+            Reply = f"負向... 分數: {scores.negative:.2f}\n"
+    if key_phrases_docs and key_phrases_docs[0].key_phrases:
+        key_phrases = key_phrases_docs[0].key_phrases
+        key_phrases_Reply = "主詞：" + "、".join(key_phrases)
+    else:
+        key_phrases_Reply = "主詞：無"
+    Reply += key_phrases_Reply
+    return Reply
+
+    # docs = [doc for doc in response if not doc.is_error]
+    # aspect_str = ""  # 初始化 aspect_str 变量
+    # for idx, doc in enumerate(docs):
+    #     print(f"Document text : {documents[idx]}")
+    #     print(f"Overall sentiment : {doc.sentiment}")
+    #     print(f"Sentiment score : {doc.confidence_scores[doc.sentiment]}")
+        
+    #     # 獲取主詞
+    #     if doc.sentences and doc.sentences[0].mined_opinions:
+    #         opinions = doc.sentences[0].mined_opinions
+    #         aspect_str = ', '.join(opinion.aspect for opinion in opinions)
+    #         print(f"Aspects : {aspect_str}")
+    
+    # return f"情感: {doc.sentiment}, 分数: {doc.confidence_scores[doc.sentiment]}, 主詞: {aspect_str}"
+
+
 
 if __name__ == "__main__":
     app.run()
