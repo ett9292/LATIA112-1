@@ -18,8 +18,9 @@
   > [Colab實驗區](https://colab.research.google.com/drive/1DMXKLHrpxbJdlWSLP1T2ocVZJ2I53xGQ#scrollTo=Q2kN2IAUPRrs)
 # 作業連結區 
 ## 作業一
-> Github: <https://github.com/ett9292/LATIA112-1/blob/main/hw01/hw1_PandasApplication.ipynb>
+> [數據分析&視覺化by Pandas, matplotlib 【偏鄉中小學資料分析】](https://github.com/ett9292/LATIA112-1/blob/main/hw01/hw1_PandasApplication.ipynb)
 ## 作業二
+> [爬蟲by Selenium, BeautifulSoup, Scrapy 【ptt教育板】](https://github.com/ett9292/LATIA112-1/tree/main/hw02)
 ## 作業三
-> [HW3 - Azure語言服務VS.教育應用](https://github.com/ett9292/LATIA112-1/blob/main/meowBot/hw03.md)
+> [Azure語言服務VS.教育應用](https://github.com/ett9292/LATIA112-1/blob/main/meowBot/hw03.md)
 # 專題連結區
